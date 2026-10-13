@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Research Opportunities | University Research Opportunity Portal{% endblock %}
+{% block body_attributes %}data-can-manage="{{ can_manage|yesno:'true,false' }}" data-is-admin="{% if user.is_staff %}true{% else %}false{% endif %}" data-user-id="{% if user.is_authenticated %}{{ user.id }}{% endif %}" data-detail-url-template="{% url 'opportunity-page' 0 %}"{% endblock %}
+
+{% block content %}
+<header>
+    <div class="container">
+      <h1>University Research Opportunity Portal</h1>
+      <div class="auth-controls">
+        {% if user.is_authenticated %}
+          <span>Signed in as {{ user.get_full_name|default:user.username }}</span>
+          <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          {% if user.is_staff %}<a class="nav-link" href="{% url 'admin-dashboard' %}">Admin</a>{% endif %}
+          <form action="{% url 'logout' %}" method="post">{% csrf_token %}<button class="secondary-btn" type="submit">Sign out</button></form>
+        {% else %}
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+          <a class="nav-link" href="{% url 'register' %}">Create account</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <main class="container app-layout">
+    {% if can_manage %}
+      {% include "opportunity_form.html" %}
+    {% endif %}
+
+    <section class="panel">
+      <h2>Available Opportunities</h2>
+      <div class="filters">
+        <input id="search" type="search" placeholder="Search title, faculty, skills..." />
+        <input id="department-filter" type="text" placeholder="Filter by department" />
+        <select id="status-filter">
+          <option value="">All statuses</option>
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+        </select>
+        <button id="filter-button" class="secondary-btn" type="button">Apply filters</button>
+      </div>
+      <div id="opportunity-list" class="opportunities-list"></div>
+      <div id="pagination" class="pagination"></div>
+    </section>
+  </main>
+{% endblock %}
+
+{% block scripts %}<script src="{% static 'js/script.js' %}"></script>{% endblock %}

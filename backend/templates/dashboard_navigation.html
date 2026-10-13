@@ -1,0 +1,8 @@
+<nav class="auth-controls">
+  <a class="nav-link" href="{% url 'opportunity-list-page' %}">Browse opportunities</a>
+  <a class="nav-link" href="{% url 'profile' %}">Edit profile</a>
+  <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button class="secondary-btn" type="submit">Sign out</button>
+  </form>
+</nav>

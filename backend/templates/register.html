@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Create account | Research Opportunity Portal{% endblock %}
+
+{% block content %}
+<header><div class="container"><h1>Create a portal account</h1></div></header>
+<main class="container narrow">
+  <section class="panel">
+    <p>Register as a student or teacher. Administrators create accounts through Django Admin.</p>
+    {% include "messages.html" %}
+    <form method="post" class="form-grid">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="primary-btn" type="submit">Create account</button>
+    </form>
+    <p>Already registered? <a href="{% url 'login' %}">Sign in</a>.</p>
+  </section>
+</main>
+{% endblock %}

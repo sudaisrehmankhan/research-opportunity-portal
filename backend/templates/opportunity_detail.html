@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ opportunity.title }} | Research Opportunity Portal{% endblock %}
+
+{% block content %}
+<header><div class="container"><h1>Research opportunity details</h1></div></header>
+<main class="container narrow">
+  <article class="panel">
+    <span class="badge {% if opportunity.status == 'Closed' %}closed{% endif %}">{{ opportunity.status }}</span>
+    <h2>{{ opportunity.title }}</h2>
+    <p>{{ opportunity.description|linebreaks }}</p>
+    <dl class="detail-list">
+      <dt>Research area</dt><dd>{{ opportunity.research_area }}</dd>
+      <dt>Faculty member</dt><dd>{{ opportunity.faculty_name }}</dd>
+      <dt>Department</dt><dd>{{ opportunity.department }}</dd>
+      <dt>Required skills</dt><dd>{{ opportunity.required_skills }}</dd>
+      <dt>Available positions</dt><dd>{{ opportunity.available_positions }}</dd>
+      <dt>Application deadline</dt><dd>{{ opportunity.application_deadline }}</dd>
+    </dl>
+    <a class="secondary-link" href="{% url 'opportunity-list-page' %}">Back to opportunities</a>
+    {% if request.user.is_authenticated %}
+      <a class="secondary-link" href="{% url 'dashboard' %}">My dashboard</a>
+    {% else %}
+      <a class="secondary-link" href="{% url 'login' %}">Sign in</a>
+    {% endif %}
+  </article>
+</main>
+{% endblock %}

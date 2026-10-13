@@ -1,0 +1,60 @@
+<section class="panel">
+  <h2 id="form-heading">Create Opportunity</h2>
+  {% include "messages.html" %}
+  <form id="opportunity-form" method="post" action="{% url 'opportunity-create' %}">
+    {% csrf_token %}
+    <input type="hidden" id="opportunity-id" />
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="title">Research Title</label>
+        {{ opportunity_form.title }}
+        {{ opportunity_form.title.errors }}
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        {{ opportunity_form.description }}
+        {{ opportunity_form.description.errors }}
+      </div>
+      <div class="form-group">
+        <label for="research_area">Research Area</label>
+        {{ opportunity_form.research_area }}
+        {{ opportunity_form.research_area.errors }}
+      </div>
+      <div class="form-group">
+        <label for="faculty_name">Faculty Member</label>
+        <input id="faculty_name" name="faculty_name" type="text" value="{{ user.get_full_name|default:user.username }}" readonly />
+      </div>
+      <div class="form-group">
+        <label for="department">Department</label>
+        {{ opportunity_form.department }}
+        {{ opportunity_form.department.errors }}
+      </div>
+      <div class="form-group">
+        <label for="required_skills">Required Skills</label>
+        {{ opportunity_form.required_skills }}
+        {{ opportunity_form.required_skills.errors }}
+      </div>
+      <div class="form-group">
+        <label for="available_positions">Available Positions</label>
+        {{ opportunity_form.available_positions }}
+        {{ opportunity_form.available_positions.errors }}
+      </div>
+      <div class="form-group">
+        <label for="application_deadline">Application Deadline</label>
+        {{ opportunity_form.application_deadline }}
+        {{ opportunity_form.application_deadline.errors }}
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        {{ opportunity_form.status }}
+        {{ opportunity_form.status.errors }}
+      </div>
+      {% if opportunity_form.non_field_errors %}<div class="message error">{{ opportunity_form.non_field_errors }}</div>{% endif %}
+      <div class="action-row">
+        <button id="submit-button" class="primary-btn" type="submit">Create Opportunity</button>
+        <button id="cancel-button" class="secondary-btn" type="button">Clear Form</button>
+      </div>
+    </div>
+  </form>
+  <div id="message" class="message" aria-live="polite"></div>
+</section>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Admin dashboard | Research Opportunity Portal{% endblock %}
+
+{% block content %}
+<header><div class="container"><h1>Administrator Dashboard</h1></div></header>
+<main class="container">
+  <section class="panel">
+    <p>University-wide administration for accounts, profiles, departments, and research opportunities.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><strong>{{ teacher_count }}</strong><span>Teachers</span></div>
+      <div class="stat-card"><strong>{{ student_count }}</strong><span>Students</span></div>
+      <div class="stat-card"><strong>{{ department_count }}</strong><span>Departments</span></div>
+      <div class="stat-card"><strong>{{ opportunity_count }}</strong><span>Opportunities</span></div>
+    </div>
+    <div class="action-row">
+      <a class="primary-link" href="{% url 'admin:auth_user_changelist' %}">Manage users</a>
+      <a class="primary-link" href="{% url 'admin:accounts_userprofile_changelist' %}">Manage teacher/student profiles</a>
+      <a class="primary-link" href="{% url 'admin:opportunities_department_changelist' %}">Manage departments</a>
+      <a class="primary-link" href="{% url 'admin:opportunities_opportunity_changelist' %}">Manage opportunities</a>
+      <a class="secondary-link" href="{% url 'opportunity-list-page' %}">Public opportunity portal</a>
+    </div>
+  </section>
+</main>
+{% endblock %}

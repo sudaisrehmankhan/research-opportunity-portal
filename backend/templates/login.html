@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Sign in | Research Opportunity Portal{% endblock %}
+{% block body_class %}login-page{% endblock %}
+
+{% block content %}
+<main class="login-shell">
+  <section class="login-intro">
+    <a class="login-brand" href="{% url 'frontend-home' %}">University Research Opportunity Portal</a>
+    <div class="login-intro-copy">
+      <span class="eyebrow">DISCOVER · CONNECT · RESEARCH</span>
+      <h1>Find your place in the next big idea.</h1>
+      <p>A shared university space for students, teachers, and administrators to connect around meaningful research.</p>
+      <nav class="portal-sections" aria-label="Portal sections">
+        <a href="{% url 'login' %}" aria-current="page"><span>01</span> Login <b>→</b></a>
+        <a href="{% url 'register' %}"><span>02</span> Teacher &amp; student accounts <b>→</b></a>
+        <a href="{% url 'opportunity-list-page' %}"><span>03</span> Research opportunities <b>→</b></a>
+        <div><span>04</span> Admin workspace <small>For authorized administrators</small></div>
+      </nav>
+    </div>
+    <p class="login-footer">Research grows when people work together.</p>
+  </section>
+  <section class="login-form-side">
+    <div class="login-form-wrap">
+      <span class="eyebrow">WELCOME BACK</span>
+      <h2>Sign in to continue</h2>
+      <p class="form-intro">Use your university portal account to access your dashboard.</p>
+      {% include "messages.html" %}
+      <form method="post" action="{% url 'login' %}" class="login-form">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="message error" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+        <div class="form-group">
+          <label for="{{ form.username.id_for_label }}">Username</label>
+          {{ form.username }}
+          {% if form.username.errors %}<div class="message error" role="alert">{{ form.username.errors }}</div>{% endif %}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.password.id_for_label }}">Password</label>
+          {{ form.password }}
+          {% if form.password.errors %}<div class="message error" role="alert">{{ form.password.errors }}</div>{% endif %}
+        </div>
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+        <button class="primary-btn" type="submit">Sign in <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="register-prompt">New to the portal? <a href="{% url 'register' %}">Create an account</a></p>
+      <a class="browse-link" href="{% url 'opportunity-list-page' %}">Browse opportunities without signing in</a>
+    </div>
+  </section>
+</main>
+{% endblock %}

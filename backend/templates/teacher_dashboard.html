@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Teacher Dashboard | Research Opportunity Portal{% endblock %}
+
+{% block content %}
+<header>
+  <div class="container">
+    <h1>Teacher Dashboard</h1>
+    {% include "dashboard_navigation.html" %}
+  </div>
+</header>
+<main class="container">
+  <section class="panel">
+    <h2>Welcome, {{ request.user.get_full_name|default:request.user.username }}</h2>
+    {% include "messages.html" %}
+    <p>Department: {{ profile.department }} · Manage your research opportunities from the <a href="{% url 'opportunity-list-page' %}">opportunities page</a>.</p>
+    <h3>Your opportunities</h3>
+    {% if opportunities %}
+      <ul class="dashboard-list">
+        {% for opportunity in opportunities %}
+          <li><a href="{% url 'opportunity-page' opportunity.id %}">{{ opportunity.title }}</a> — {{ opportunity.status }} · <a href="{% url 'opportunity-list-page' %}#opportunity-form">Edit/manage</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>You have not created any opportunities yet.</p>
+    {% endif %}
+    <a class="primary-link" href="{% url 'opportunity-list-page' %}#opportunity-form">Create research opportunity</a>
+  </section>
+</main>
+{% endblock %}
