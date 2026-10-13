@@ -1,0 +1,302 @@
+{
+  "info": {
+    "name": "Research Opportunity Portal API",
+    "description": "CRUD and validation requests. Set username/password to a registered teacher account and create at least one department in Django Admin first.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{username}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{password}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "teacher_username",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "teacher_password",
+      "type": "string"
+    },
+    {
+      "key": "opportunity_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Get all opportunities",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/opportunities",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities"]
+        }
+      }
+    },
+    {
+      "name": "Create opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Opportunity created', function () { pm.response.to.have.status(201); });",
+              "if (pm.response.code === 201) pm.collectionVariables.set('opportunity_id', pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"AI-Based Traffic Detection\",\n  \"description\": \"Research project focused on traffic detection using machine learning.\",\n  \"research_area\": \"Artificial Intelligence\",\n  \"faculty_name\": \"Dr. Ahmed\",\n  \"department\": \"Computer Science\",\n  \"required_skills\": \"Python, Machine Learning\",\n  \"available_positions\": 2,\n  \"application_deadline\": \"2026-11-30\",\n  \"status\": \"Open\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/opportunities",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities"]
+        }
+      }
+    },
+    {
+      "name": "Create second opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Second opportunity created', function () { pm.response.to.have.status(201); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\":\"Campus Air Quality Study\",\"description\":\"Measure indoor and outdoor air quality around campus.\",\"research_area\":\"Environmental Science\",\"faculty_name\":\"Dr. Example\",\"department\":\"Computer Science\",\"required_skills\":\"Data analysis, sensors\",\"available_positions\":2,\"application_deadline\":\"2026-12-10\",\"status\":\"Open\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/opportunities",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities"]
+        }
+      }
+    },
+    {
+      "name": "Create third opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Third opportunity created', function () { pm.response.to.have.status(201); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\":\"Robotics Lab Assistant\",\"description\":\"Support a robotics automation research project.\",\"research_area\":\"Robotics\",\"faculty_name\":\"Dr. Example\",\"department\":\"Computer Science\",\"required_skills\":\"Python, ROS\",\"available_positions\":1,\"application_deadline\":\"2026-12-20\",\"status\":\"Open\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/opportunities",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities"]
+        }
+      }
+    },
+    {
+      "name": "Get one opportunity",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/opportunities/{{opportunity_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities", "{{opportunity_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Update opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Opportunity updated', function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"AI-Based Traffic Detection\",\n  \"description\": \"Updated research project focused on traffic detection using machine learning.\",\n  \"research_area\": \"Artificial Intelligence\",\n  \"faculty_name\": \"Dr. Ahmed\",\n  \"department\": \"Computer Science\",\n  \"required_skills\": \"Python, Machine Learning, Data Analysis\",\n  \"available_positions\": 1,\n  \"application_deadline\": \"2026-12-15\",\n  \"status\": \"Closed\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/opportunities/{{opportunity_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities", "{{opportunity_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Opportunity deleted', function () { pm.response.to.have.status(204); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/opportunities/{{opportunity_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities", "{{opportunity_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Invalid request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Invalid data returns 400', function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"\",\n  \"research_area\": \"AI\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/opportunities",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities"]
+        }
+      }
+    },
+    {
+      "name": "Unauthenticated write is rejected",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Unauthenticated write is denied', function () { pm.expect([401, 403]).to.include(pm.response.code); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/opportunities",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities"]
+        }
+      }
+    },
+    {
+      "name": "Verify deleted opportunity returns 404",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/opportunities/{{opportunity_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "opportunities", "{{opportunity_id}}"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Deleted opportunity returns 404', function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

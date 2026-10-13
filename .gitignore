@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.log
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Local databases and uploaded user files
+*.sqlite3
+db.sqlite3
+media/
+
+# Django-generated files
+staticfiles/
+
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin dashboard | Research Opportunity Portal</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header><div class="container"><h1>Administrator Dashboard</h1></div></header>
+    <main class="container">
+      <section class="panel">
+        <p>University-wide administration for accounts, profiles, departments, and research opportunities.</p>
+        <div class="stats-grid">
+          <div class="stat-card"><strong>{{ teacher_count }}</strong><span>Teachers</span></div>
+          <div class="stat-card"><strong>{{ student_count }}</strong><span>Students</span></div>
+          <div class="stat-card"><strong>{{ department_count }}</strong><span>Departments</span></div>
+          <div class="stat-card"><strong>{{ opportunity_count }}</strong><span>Opportunities</span></div>
+        </div>
+        <div class="action-row">
+          <a class="primary-link" href="/admin/auth/user/">Manage users</a>
+          <a class="primary-link" href="/admin/opportunities/userprofile/">Manage teacher/student profiles</a>
+          <a class="primary-link" href="/admin/opportunities/department/">Manage departments</a>
+          <a class="primary-link" href="/admin/opportunities/opportunity/">Manage opportunities</a>
+          <a class="secondary-link" href="{% url 'opportunity-list-page' %}">Public opportunity portal</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

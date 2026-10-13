@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create account | Research Opportunity Portal</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header><div class="container"><h1>Create a portal account</h1></div></header>
+    <main class="container narrow">
+      <section class="panel">
+        <p>Register as a student or teacher. Administrators create accounts through Django Admin.</p>
+        <form method="post" class="form-grid">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="primary-btn" type="submit">Create account</button>
+        </form>
+        <p>Already registered? <a href="{% url 'login' %}">Sign in</a>.</p>
+      </section>
+    </main>
+  </body>
+</html>
